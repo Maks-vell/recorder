@@ -1,0 +1,23 @@
+# Бинарники
+/target/
+**/*.rs.bk
+
+# Файлы сборки и зависимости
+Cargo.lock
+
+# Логи, временные файлы
+*.log
+*.tmp
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# dotenv
+.env
+.env.*
