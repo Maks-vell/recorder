@@ -1,7 +1,7 @@
 use tokio;
 use tracing_subscriber;
 
-use recorder::{app, config};
+use recorder::app::*;
 
 #[tokio::main]
 async fn main() {
