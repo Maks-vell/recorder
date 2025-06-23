@@ -44,7 +44,7 @@ impl StorageRepository {
             separated.push("screenshots_interval_minutes = ").push_bind(screenshots_interval as i32);
         }
 
-        qb.push(" WHERE id = 1"); // или какой у тебя критерий обновления
+        qb.push(" WHERE id = 1");
 
         let query = qb.build();
 
