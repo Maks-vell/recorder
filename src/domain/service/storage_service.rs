@@ -2,7 +2,7 @@ use sqlx::{Error, PgPool};
 
 use crate::api::http::dto::storage_settings_dto::UpdateStorageSettingsDto;
 use crate::domain::entity::storage_settings_entity::StorageSettingsEntity;
-use crate::infrastructure::recorder_pg::repository::storage_repository::StorageRepository;
+use crate::infrastructure::recorderdb_pg::repository::storage_repository::StorageRepository;
 
 pub struct StorageService {
     repository: StorageRepository,
@@ -18,7 +18,7 @@ impl StorageService {
         self.repository.get_settings().await
     }
 
-    pub async fn update_settings(&self, new: UpdateStorageSettingsDto) -> Result<(), Error> {
+    pub async fn update_settings(&self, new: UpdateStorageSettingsDto) -> Result<StorageSettingsEntity, Error> {
         self.repository.update_settings_partial(new).await
     }
 }

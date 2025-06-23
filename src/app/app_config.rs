@@ -1,13 +1,13 @@
 use std::env;
 
 #[derive(Clone)]
-pub struct Config {
+pub struct AppConfig {
     pub database_url: String,
     pub server_port: u16,
     pub server_url: String,
 }
 
-impl Config {
+impl AppConfig {
     pub fn from_env() -> Self {
         dotenvy::dotenv().ok();
 

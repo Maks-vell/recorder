@@ -1,12 +1,15 @@
 use serde::{Deserialize, Serialize};
 use utoipa::ToSchema;
+use validator_derive::Validate;
 
 use crate::domain::entity::storage_settings_entity::StorageSettingsEntity;
 
 #[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
 pub struct StorageSettingsDto {
     pub max_storage_days: i32,
+
     pub video_interval_minutes: i32,
+
     pub screenshots_interval_minutes: i32,
 }
 impl From<StorageSettingsEntity> for StorageSettingsDto {
@@ -20,12 +23,17 @@ impl From<StorageSettingsEntity> for StorageSettingsDto {
 }
 
 
-#[derive(Debug, Serialize, Deserialize, ToSchema)]
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema, Validate)]
 pub struct UpdateStorageSettingsDto {
+    #[validate(range(min = 1, max = 30))]
     #[schema(example = 7)]
     pub max_storage_days: Option<i32>,
+
+    #[validate(range(min = 1, max = 60))]
     #[schema(example = 10)]
     pub video_interval_minutes: Option<i32>,
+
+    #[validate(range(min = 1, max = 60))]
     #[schema(example = 10)]
     pub screenshots_interval_minutes: Option<i32>,
 }

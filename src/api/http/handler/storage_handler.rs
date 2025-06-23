@@ -1,12 +1,11 @@
-use axum::{
-    extract::State,
-    Json,
-};
 use axum::http::StatusCode;
+use axum::{Json, extract::State};
+use serde_json::json;
+use tracing::error;
+use validator::Validate;
 
 use crate::api::http::dto::storage_settings_dto::{StorageSettingsDto, UpdateStorageSettingsDto};
-use crate::app::state::AppState;
-
+use crate::app::app_state::AppState;
 #[utoipa::path(
     get,
     path = "/api/storage/settings",
@@ -28,7 +27,7 @@ pub async fn get_storage_settings(
 }
 
 #[utoipa::path(
-    post,
+    patch,
     path = "/api/storage/settings",
     request_body = UpdateStorageSettingsDto,
     responses(
@@ -39,13 +38,29 @@ pub async fn get_storage_settings(
 pub async fn update_storage_settings(
     State(state): State<AppState>,
     Json(payload): Json<UpdateStorageSettingsDto>,
-) -> Result<StatusCode, StatusCode> {
-    state
+) -> Result<Json<StorageSettingsDto>, (StatusCode, Json<serde_json::Value>)> {
+    if let Err(errors) = payload.validate() {
+        let response_body = json!({
+            "error": "Validation failed",
+            "details": errors
+        });
+
+        return Err((StatusCode::BAD_REQUEST, Json(response_body)));
+    }
+
+    match state
         .services
         .storage_service
         .update_settings(payload)
         .await
-        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
-
-    Ok(StatusCode::OK)
+    {
+        Ok(updated) => Ok(Json(updated.into())),
+        Err(e) => {
+            error!("Update error: {}", e);
+            let response_body = json!({
+                "error": "Internal server error"
+            });
+            Err((StatusCode::INTERNAL_SERVER_ERROR, Json(response_body)))
+        }
+    }
 }

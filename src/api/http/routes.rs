@@ -5,7 +5,7 @@ use utoipa_swagger_ui::SwaggerUi;
 
 use crate::api::http::handler::storage_handler;
 use crate::api::http::dto::storage_settings_dto;
-use crate::app::state::AppState;
+use crate::app::app_state::AppState;
 
 #[derive(OpenApi)]
 #[openapi(
