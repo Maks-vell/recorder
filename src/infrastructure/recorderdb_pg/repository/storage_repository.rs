@@ -8,7 +8,7 @@ pub struct StorageRepository {
 }
 
 impl StorageRepository {
-    pub(crate) async fn get_settings(&self) -> Result<StorageSettingsEntity, anyhow::Error> {
+    pub async fn get_settings(&self) -> Result<StorageSettingsEntity, anyhow::Error> {
         let row = sqlx::query!(
             r#"
             SELECT max_storage_days, video_interval_minutes, screenshots_interval_minutes

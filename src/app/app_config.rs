@@ -1,5 +1,6 @@
 use std::env;
 
+/// Configurations from .env
 #[derive(Clone)]
 pub struct AppConfig {
     pub database_url: String,
@@ -8,6 +9,7 @@ pub struct AppConfig {
 }
 
 impl AppConfig {
+    /// Load configurations from .env
     pub fn from_env() -> Self {
         dotenvy::dotenv().ok();
 

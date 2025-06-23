@@ -7,8 +7,11 @@ use crate::api::http::routes::init_routes;
 use crate::app::app_state::AppState;
 use crate::infrastructure::recorderdb_pg::connection::init_pool;
 
+/// High level module for building and run the app
 pub struct App {}
+
 impl App {
+    /// Build and run app
     pub async fn run() {
         tracing_subscriber::fmt()
             .pretty()
