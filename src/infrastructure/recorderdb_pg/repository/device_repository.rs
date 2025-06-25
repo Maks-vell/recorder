@@ -5,5 +5,8 @@ pub struct DeviceRepository {
 }
 
 impl DeviceRepository {
+    pub fn new(pool: PgPool) -> Self {
+        Self { pool }
+    }
 
 }

@@ -5,5 +5,8 @@ pub struct RecordRepository {
 }
 
 impl RecordRepository {
+    pub fn new(pool: PgPool) -> Self {
+        Self { pool }
+    }
 
 }

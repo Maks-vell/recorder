@@ -8,6 +8,10 @@ pub struct StorageRepository {
 }
 
 impl StorageRepository {
+    pub fn new(pool: PgPool) -> Self {
+        Self { pool }
+    }
+
     pub async fn get_settings(&self) -> Result<StorageSettingsEntity, anyhow::Error> {
         let row = sqlx::query!(
             r#"

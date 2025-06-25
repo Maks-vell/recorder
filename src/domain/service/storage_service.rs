@@ -1,4 +1,4 @@
-use sqlx::{Error, PgPool};
+use sqlx::{Error};
 
 use crate::api::http::dto::storage_settings_dto::UpdateStorageSettingsDto;
 use crate::domain::entity::storage_settings_entity::StorageSettingsEntity;
@@ -16,8 +16,7 @@ impl StorageService {
     ///
     /// # Аргументы
     /// * `pool` - пул соединений с PostgreSQL.
-    pub fn new(pool: PgPool) -> Self {
-        let repository = StorageRepository { pool };
+    pub fn new(repository: StorageRepository) -> Self {
         Self { repository }
     }
 

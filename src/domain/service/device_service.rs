@@ -1,4 +1,3 @@
-use sqlx::PgPool;
 use crate::infrastructure::recorderdb_pg::repository::device_repository::DeviceRepository;
 
 /// Сервис работы с девайсами.
@@ -9,8 +8,7 @@ pub struct  DeviceService {
 }
 
 impl DeviceService {
-    pub fn new(pool: PgPool) -> Self {
-        let repository = DeviceRepository { pool };
+    pub fn new(repository: DeviceRepository) -> Self {
         Self { repository }
     }
 }

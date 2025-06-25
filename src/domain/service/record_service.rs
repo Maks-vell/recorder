@@ -1,4 +1,3 @@
-use sqlx::PgPool;
 use crate::infrastructure::recorderdb_pg::repository::record_repository::RecordRepository;
 
 /// Сервис работы с записями видео.
@@ -9,8 +8,7 @@ pub struct  RecordService {
 }
 
 impl RecordService {
-    pub fn new(pool: PgPool) -> Self {
-        let repository = RecordRepository { pool };
+    pub fn new(repository: RecordRepository) -> Self {
         Self { repository }
     }
 }
